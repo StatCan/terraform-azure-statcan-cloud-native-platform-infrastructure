@@ -45,3 +45,22 @@ output "velero_storage_account_name" {
 output "velero_storage_bucket_name" {
   value = azurerm_storage_container.velero.name
 }
+
+######################
+### Argo Workflows ###
+######################
+
+output "platform_workflows_storage_account_name" {
+  description = "The name of the workflows storage account."
+  value       = azurerm_storage_account.workflows.name
+}
+
+output "platform_workflows_primary_access_key" {
+  description = "The primary access key of the workflows storage account."
+  value       = azurerm_storage_account.workflows.primary_access_key
+}
+
+output "platform_workflows_primary_blob_endpoint" {
+  description = "The primary blob endpoint of the workflows storage account."
+  value       = azurerm_storage_account.workflows.primary_blob_endpoint
+}
