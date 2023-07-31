@@ -31,16 +31,16 @@ resource "azurerm_role_assignment" "backup_rg_owner_hosting_k8s" {
 }
 
 resource "azurerm_storage_account" "velero" {
-  name                      = replace("${var.prefix}-sa-velero", "-", "")
-  location                  = var.azure_region
-  resource_group_name       = azurerm_resource_group.backup.name
-  account_kind              = "StorageV2"
-  account_tier              = "Standard"
-  account_replication_type  = "RAGZRS"
-  access_tier               = "Hot"
-  enable_https_traffic_only = true
-  allow_blob_public_access  = false
-  min_tls_version           = "TLS1_2"
+  name                            = replace("${var.prefix}-sa-velero", "-", "")
+  location                        = var.azure_region
+  resource_group_name             = azurerm_resource_group.backup.name
+  account_kind                    = "StorageV2"
+  account_tier                    = "Standard"
+  account_replication_type        = "RAGZRS"
+  access_tier                     = "Hot"
+  enable_https_traffic_only       = true
+  allow_nested_items_to_be_public = false
+  min_tls_version                 = "TLS1_2"
 
   tags = var.tags
 
@@ -59,8 +59,7 @@ resource "azurerm_advanced_threat_protection" "velero" {
 }
 
 resource "azurerm_storage_account_network_rules" "velero" {
-  storage_account_name = azurerm_storage_account.velero.name
-  resource_group_name  = azurerm_resource_group.backup.name
+  storage_account_id = azurerm_storage_account.velero.id
 
   default_action             = "Deny"
   virtual_network_subnet_ids = var.velero_storage_account_subnets
