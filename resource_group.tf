@@ -6,11 +6,7 @@
 resource "azurerm_resource_group" "platform" {
   name     = "${var.prefix}-rg-platform"
   location = var.azure_region
-  tags     = var.tags
-
-  lifecycle {
-    ignore_changes = [tags.DateCreatedModified]
-  }
+  tags     = local.tags
 }
 
 # CI SP be the owner of the platform resource group

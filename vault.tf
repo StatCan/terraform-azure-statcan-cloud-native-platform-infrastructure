@@ -6,7 +6,7 @@
 resource "azurerm_user_assigned_identity" "vault" {
   resource_group_name = azurerm_resource_group.backup.name
   location            = var.azure_region
-  tags                = var.tags
+  tags                = local.tags
 
   name = "${var.prefix}-msi-vault"
 
