@@ -14,13 +14,9 @@ resource "azurerm_storage_account" "workflows" {
   allow_nested_items_to_be_public = false
   min_tls_version                 = "TLS1_2"
 
-  tags = var.tags
+  tags = local.tags
 
   depends_on = [
     azurerm_role_assignment.platform_rg_owner_ci
   ]
-
-  lifecycle {
-    ignore_changes = [tags.DateCreatedModified]
-  }
 }

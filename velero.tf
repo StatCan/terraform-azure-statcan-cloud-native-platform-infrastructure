@@ -9,11 +9,7 @@
 resource "azurerm_resource_group" "backup" {
   name     = "${var.prefix}-rg-backup"
   location = var.azure_region
-  tags     = var.tags
-
-  lifecycle {
-    ignore_changes = [tags.DateCreatedModified]
-  }
+  tags     = local.tags
 }
 
 # CI SP be the owner of the resource group
@@ -76,7 +72,7 @@ resource "azurerm_storage_container" "velero" {
 resource "azurerm_user_assigned_identity" "velero" {
   resource_group_name = azurerm_resource_group.backup.name
   location            = var.azure_region
-  tags                = var.tags
+  tags                = local.tags
 
   name = "${var.prefix}-msi-velero"
 
